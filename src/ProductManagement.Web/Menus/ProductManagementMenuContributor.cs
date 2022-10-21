@@ -45,5 +45,20 @@ public class ProductManagementMenuContributor : IMenuContributor
 
         administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);
         administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 3);
+
+        //add Menu
+        context.Menu.AddItem(
+            new ApplicationMenuItem(
+                "ProductManagement",
+                l["Menu:ProductManagement"],
+                icon: "fas fa-shopping-cart"
+                    ).AddItem(
+                new ApplicationMenuItem(
+                    "ProductManagement.Products",
+                    l["Menu:Products"],
+                    url: "/Products"
+                )
+            )
+        );
     }
 }

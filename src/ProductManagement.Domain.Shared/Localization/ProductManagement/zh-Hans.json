@@ -1,8 +1,25 @@
 {
-    "culture": "zh-Hans",
-    "texts": {
-      "Menu:Home": "首页",
-      "Welcome": "欢迎",
-      "LongWelcomeMessage": "欢迎来到该应用程序. 这是一个基于ABP框架的启动项目. 有关更多信息, 请访问 abp.io."
-    }
+  "culture": "zh-Hans",
+  "texts": {
+    "Menu:Home": "首页",
+    "Welcome": "欢迎",
+    "LongWelcomeMessage": "欢迎来到该应用程序. 这是一个基于ABP框架的启动项目. 有关更多信息, 请访问 abp.io.",
+    "Menu:ProductManagement": "产品管理",
+    "Menu:Products": "产品信息",
+    "Name": "产品名称",
+    "CategoryName": "分类名称",
+    "Price": "价格",
+    "StockState": "库存状态",
+    "Enum:StockState:0": "下单前",
+    "Enum:StockState:1": "库存中",
+    "Enum:StockState:2": "不可用",
+    "Enum:StockState:3": "已停止",
+    "CreationTime": "创建时间",
+    "NewProduct": "新增产品",
+    "Category": "分类",
+    "IsFreeCargo": "免费配送",
+    "ReleaseDate": "发布时间",
+    "ProductDeletionConfirmationMessage": "你确定要删除吗: {0}",
+    "SuccessfullyDeleted": "删除成功!"
   }
+}
