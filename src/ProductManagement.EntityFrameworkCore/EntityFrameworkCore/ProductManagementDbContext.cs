@@ -14,6 +14,8 @@ using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using ProductManagement.Products;
 using ProductManagement.Categories;
+using ProductManagement.Books;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 
 namespace ProductManagement.EntityFrameworkCore;
 
@@ -52,6 +54,8 @@ public class ProductManagementDbContext :
     public DbSet<Product> Products { get; set; }
     public DbSet<Category> Categories { get; set; }
 
+    //Book DataSet
+    public DbSet<Book> Books { get; set; }
 
     // Tenant Management
     public DbSet<Tenant> Tenants { get; set; }
@@ -105,12 +109,19 @@ public class ProductManagementDbContext :
             b.HasIndex(x => x.Name).IsUnique();
         });
 
-
         //builder.Entity<YourEntity>(b =>
         //{
         //    b.ToTable(ProductManagementConsts.DbTablePrefix + "YourEntities", ProductManagementConsts.DbSchema);
         //    b.ConfigureByConvention(); //auto configure for the base class props
         //    //...
         //});
+
+        //Books
+        builder.Entity<Book>(b =>
+        {
+            b.ToTable("Books");
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Name).IsRequired().HasMaxLength(128);
+        });
     }
 }

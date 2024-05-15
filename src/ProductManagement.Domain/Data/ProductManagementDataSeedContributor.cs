@@ -1,4 +1,5 @@
-﻿using ProductManagement.Categories;
+﻿using ProductManagement.Books;
+using ProductManagement.Categories;
 using ProductManagement.Products;
 using System;
 using System.Threading.Tasks;
@@ -13,16 +14,45 @@ namespace ProductManagement.Data
     {
         private readonly IRepository<Category, Guid> _categoryRepository;
         private readonly IRepository<Product, Guid> _productRepository;
+
+        private readonly IRepository<Book, Guid> _bookRepository;
+
         public ProductManagementDataSeedContributor(
             IRepository<Category, Guid> categoryRepository,
-            IRepository<Product, Guid> productRepository)
+            IRepository<Product, Guid> productRepository, IRepository<Book, Guid> bookRepository)
         {
             _categoryRepository = categoryRepository;
             _productRepository = productRepository;
+             _bookRepository = bookRepository;
         }
         public async Task SeedAsync(DataSeedContext context)
         {
             /***** TODO: Seed initial data here *****/
+            if (await _bookRepository.GetCountAsync() <= 0)
+            {
+                await _bookRepository.InsertAsync(
+                    new Book
+                    {
+                        Name = "1984",
+                        Type = BookType.Dystopia,
+                        PublishDate = new DateTime(1949, 6, 8),
+                        Price = 19.84f
+                    },
+                    autoSave: true
+                );
+
+                await _bookRepository.InsertAsync(
+                    new Book
+                    {
+                        Name = "The Hitchhiker's Guide to the Galaxy",
+                        Type = BookType.ScienceFiction,
+                        PublishDate = new DateTime(1995, 9, 27),
+                        Price = 42.0f
+                    },
+                    autoSave: true
+                );
+            }
+
             if (await _categoryRepository.CountAsync() > 0)
             {
                 return;
@@ -56,6 +86,8 @@ namespace ProductManagement.Data
                 StockState = ProductStockState.NotAvailable
             };
             await _productRepository.InsertManyAsync(new[] { monitor1, monitor2, printer1 });
+
+           
         }
     }
 }

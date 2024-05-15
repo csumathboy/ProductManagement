@@ -60,5 +60,20 @@ public class ProductManagementMenuContributor : IMenuContributor
                 )
             )
         );
+
+        context.Menu.AddItem(
+         new ApplicationMenuItem(
+             "ProductManagement",
+             l["Menu:BookManagement"],
+             icon: "fas fa-book"
+                 ).AddItem(
+             new ApplicationMenuItem(
+                 "BookManagement.Books",
+                 l["Menu:Books"],
+                 url: "/Books"
+             )
+         )
+      
+     );
     }
 }

@@ -19,6 +19,11 @@
     "Category": "Category",
     "IsFreeCargo": "Free Cargo",
     "ReleaseDate": "Release Date",
+
+    "PublishDate": "Publish date",
+    "NewBook": "New book",
+    "Type": "Type",
+   
     "ProductDeletionConfirmationMessage": "Are you sure to delete this book: {0}",
     "SuccessfullyDeleted": "Successfully deleted!"
   }
