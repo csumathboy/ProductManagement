@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using ProductManagement.Localization;
 using ProductManagement.MultiTenancy;
+using ProductManagement.Permissions;
 using Volo.Abp.Identity.Web.Navigation;
 using Volo.Abp.SettingManagement.Web.Navigation;
 using Volo.Abp.TenantManagement.Web.Navigation;
@@ -60,20 +61,23 @@ public class ProductManagementMenuContributor : IMenuContributor
                 )
             )
         );
+        var bookStoreMenu = new ApplicationMenuItem(
+                "ProductManagement",
+                l["Menu:BookStore"],
+                icon: "fa fa-book"
+            );
 
-        context.Menu.AddItem(
-         new ApplicationMenuItem(
-             "ProductManagement",
-             l["Menu:BookManagement"],
-             icon: "fas fa-book"
-                 ).AddItem(
-             new ApplicationMenuItem(
-                 "BookManagement.Books",
-                 l["Menu:Books"],
-                 url: "/Books"
-             )
-         )
+        context.Menu.AddItem(bookStoreMenu);
+
+        //CHECK the PERMISSION
+        if (await context.IsGrantedAsync(ProductManagementPermissions.Books.Default))
+        {
+            bookStoreMenu.AddItem(new ApplicationMenuItem(
+                "ProductManagement.Books",
+                l["Menu:Books"],
+                url: "/Books"
+            ));
+        }
       
-     );
     }
 }

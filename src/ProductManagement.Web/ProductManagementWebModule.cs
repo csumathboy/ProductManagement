@@ -37,6 +37,8 @@ using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.UI;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.VirtualFileSystem;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using ProductManagement.Permissions;
 
 namespace ProductManagement.Web;
 
@@ -94,8 +96,16 @@ public class ProductManagementWebModule : AbpModule
         ConfigureNavigationServices();
         ConfigureAutoApiControllers();
         ConfigureSwaggerServices(context.Services);
+        //Permissions
+        Configure<RazorPagesOptions>(options =>
+        {
+            options.Conventions.AuthorizePage("/Books/Index", ProductManagementPermissions.Books.Default);
+            options.Conventions.AuthorizePage("/Books/CreateModal", ProductManagementPermissions.Books.Create);
+            options.Conventions.AuthorizePage("/Books/EditModal", ProductManagementPermissions.Books.Edit);
+        });
+
     }
-    
+
     private void ConfigureAuthentication(ServiceConfigurationContext context)
     {
         context.Services.ForwardIdentityAuthenticationForBearer(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);

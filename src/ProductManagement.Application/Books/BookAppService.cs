@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProductManagement.Permissions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,7 +22,11 @@ namespace ProductManagement.Books
         public BookAppService(IRepository<Book, Guid> repository)
             : base(repository)
         {
-
+            GetPolicyName = ProductManagementPermissions.Books.Default;
+            GetListPolicyName = ProductManagementPermissions.Books.Default;
+            CreatePolicyName = ProductManagementPermissions.Books.Create;
+            UpdatePolicyName = ProductManagementPermissions.Books.Edit;
+            DeletePolicyName = ProductManagementPermissions.Books.Delete;
         }
     }
 }
