@@ -36,6 +36,17 @@
     "Permission:Products": "Products Management",
     "Permission:Products.Create": "Creating new Products",
     "Permission:Products.Edit": "Editing the Products",
-    "Permission:Products.Delete": "Deleting the Products"
+    "Permission:Products.Delete": "Deleting the Products",
+
+    "Permission:Authors": "Author Management",
+    "Permission:Authors.Create": "Creating new authors",
+    "Permission:Authors.Edit": "Editing the authors",
+    "Permission:Authors.Delete": "Deleting the authors",
+
+    "Menu:Authors": "Authors",
+    "Authors": "Authors",
+    "AuthorDeletionConfirmationMessage": "Are you sure to delete the author '{0}'?",
+    "BirthDate": "Birth date",
+    "NewAuthor": "New author"
   }
 }

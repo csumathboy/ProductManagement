@@ -8,7 +8,7 @@ public class ProductManagementPermissionDefinitionProvider : PermissionDefinitio
 {
     public override void Define(IPermissionDefinitionContext context)
     {
-         
+
         //Define your own permissions here. Example:
         //myGroup.AddPermission(ProductManagementPermissions.MyPermission1, L("Permission:MyPermission1"));
         var productManagementGroup = context.AddGroup(ProductManagementPermissions.GroupName, L("Permission:ProductManagement"));
@@ -23,6 +23,13 @@ public class ProductManagementPermissionDefinitionProvider : PermissionDefinitio
         productsPermission.AddChild(ProductManagementPermissions.Products.Edit, L("Permission:Products.Edit"));
         productsPermission.AddChild(ProductManagementPermissions.Products.Delete, L("Permission:Products.Delete"));
 
+        var authorsPermission = productManagementGroup.AddPermission(ProductManagementPermissions.Authors.Default, L("Permission:Authors"));
+        authorsPermission.AddChild(
+            ProductManagementPermissions.Authors.Create, L("Permission:Authors.Create"));
+        authorsPermission.AddChild(
+            ProductManagementPermissions.Authors.Edit, L("Permission:Authors.Edit"));
+        authorsPermission.AddChild(
+            ProductManagementPermissions.Authors.Delete, L("Permission:Authors.Delete"));
     }
 
     private static LocalizableString L(string name)

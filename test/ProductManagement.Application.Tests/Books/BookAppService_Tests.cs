@@ -1,4 +1,5 @@
-﻿using Shouldly;
+﻿using ProductManagement.Authors;
+using Shouldly;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,14 +12,15 @@ using Xunit;
 
 namespace ProductManagement.Books
 {
-    public abstract class BookAppService_Tests<TStartupModule> : ProductManagementApplicationTestBase
-         where TStartupModule : IAbpModule
+    public class BookAppService_Tests : ProductManagementApplicationTestBase
     {
         private readonly IBookAppService _bookAppService;
+        private readonly IAuthorAppService _authorAppService;
 
         public BookAppService_Tests()
         {
             _bookAppService = GetRequiredService<IBookAppService>();
+            _authorAppService = GetRequiredService<IAuthorAppService>();
         }
 
         [Fact]
@@ -31,19 +33,24 @@ namespace ProductManagement.Books
 
             //Assert
             result.TotalCount.ShouldBeGreaterThan(0);
-            result.Items.ShouldContain(b => b.Name == "1984");
+            result.Items.ShouldContain(b => b.Name == "1984" &&
+                                       b.AuthorName == "George Orwell");
         }
 
         [Fact]
         public async Task Should_Create_A_Valid_Book()
         {
+            var authors = await _authorAppService.GetListAsync(new GetAuthorListDto());
+            var firstAuthor = authors.Items.First();
+
             //Act
             var result = await _bookAppService.CreateAsync(
                 new CreateUpdateBookDto
                 {
+                    AuthorId = firstAuthor.Id,
                     Name = "New test book 42",
                     Price = 10,
-                    PublishDate = DateTime.Now,
+                    PublishDate = System.DateTime.Now,
                     Type = BookType.ScienceFiction
                 }
             );
@@ -70,7 +77,7 @@ namespace ProductManagement.Books
             });
 
             exception.ValidationErrors
-                .ShouldContain(err => err.MemberNames.Any(mem => mem == "Name"));
+                .ShouldContain(err => err.MemberNames.Any(m => m == "Name"));
         }
     }
 }

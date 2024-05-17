@@ -16,6 +16,7 @@ using ProductManagement.Products;
 using ProductManagement.Categories;
 using ProductManagement.Books;
 using Volo.Abp.EntityFrameworkCore.Modeling;
+using ProductManagement.Authors;
 
 namespace ProductManagement.EntityFrameworkCore;
 
@@ -56,6 +57,8 @@ public class ProductManagementDbContext :
 
     //Book DataSet
     public DbSet<Book> Books { get; set; }
+    public DbSet<Author> Authors { get; set; }
+
 
     // Tenant Management
     public DbSet<Tenant> Tenants { get; set; }
@@ -122,6 +125,20 @@ public class ProductManagementDbContext :
             b.ToTable("Books");
             b.ConfigureByConvention(); //auto configure for the base class props
             b.Property(x => x.Name).IsRequired().HasMaxLength(128);
+            b.HasOne<Author>().WithMany().HasForeignKey(x => x.AuthorId).IsRequired();
+        });
+
+        builder.Entity<Author>(b =>
+        {
+            b.ToTable("Authors");
+
+            b.ConfigureByConvention();
+
+            b.Property(x => x.Name)
+                .IsRequired()
+                .HasMaxLength(AuthorConsts.MaxNameLength);
+
+            b.HasIndex(x => x.Name);
         });
     }
 }

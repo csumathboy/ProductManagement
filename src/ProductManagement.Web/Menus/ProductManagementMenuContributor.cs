@@ -78,6 +78,16 @@ public class ProductManagementMenuContributor : IMenuContributor
                 url: "/Books"
             ));
         }
-      
+
+        if (await context.IsGrantedAsync(ProductManagementPermissions.Authors.Default))
+        {
+            bookStoreMenu.AddItem(new ApplicationMenuItem(
+                "ProductManagement.Authors",
+                l["Menu:Authors"],
+                url: "/Authors"
+            ));
+        }
+
+
     }
 }

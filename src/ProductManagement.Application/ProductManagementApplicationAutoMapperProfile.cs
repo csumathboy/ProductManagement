@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ProductManagement.Authors;
 using ProductManagement.Books;
 using ProductManagement.Categories;
 using ProductManagement.Products;
@@ -17,5 +18,7 @@ public class ProductManagementApplicationAutoMapperProfile : Profile
         CreateMap<Category, CategoryLookupDto>();
         CreateMap<Book, BookDto>();
         CreateMap<CreateUpdateBookDto, Book>();
+        CreateMap<Author, AuthorDto>();
+        CreateMap<Author, AuthorLookupDto>();
     }
 }
